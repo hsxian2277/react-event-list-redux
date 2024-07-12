@@ -7,6 +7,7 @@
     "@emotion/styled": "*",
     "@mui/icons-material": "*",
     "@mui/material": "*",
+    "concurrently": "^8.2.2",
     "json-server": "^1.0.0-beta.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -29,8 +30,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "json-server --watch -p 3001 ./src/backend/db.json",
-    "lint": "eslint ./src/**/*.jsx ./src/**/*.js"
+    "server": "json-server -p 3001 ./src/backend/db.json",
+    "lint": "eslint ./src/**/*.jsx ./src/**/*.js",
+    "app": "concurrently \"npm run server\" \"npm start\""
   },
   "eslintConfig": {
     "extends": [
