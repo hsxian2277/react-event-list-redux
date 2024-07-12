@@ -15,6 +15,7 @@
     "uuidv4": "^6.2.13"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -28,13 +29,24 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "json-server --watch src/backend/db.json"
+    "server": "json-server --watch -p 3001 ./src/backend/db.json",
+    "lint": "eslint ./src/**/*.jsx ./src/**/*.js"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
-    ]
+      "react-app/jest",
+      "google"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 12
+    },
+    "rules": {
+      "indent": [
+        "warn",
+        2
+      ]
+    }
   },
   "browserslist": {
     "production": [

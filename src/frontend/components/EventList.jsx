@@ -1,10 +1,20 @@
 import './styles.css';
-import { useState, useEffect } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import {useState, useEffect} from 'react';
+import {v4 as uuidv4} from 'uuid';
 import Event from './Event';
 import EventInput from './EventInput';
-import { fetchEvents, postEvent, deleteEvent, putEvent } from '../api/EventListAPI';
+import {
+  fetchEvents,
+  postEvent,
+  deleteEvent,
+  putEvent} from '../api/EventListAPI';
 
+
+/**
+ * Event List
+ *
+ * @return {object} JSX
+ */
 export default function EventList() {
   const [events, setEvents] = useState([]);
   const [isAdding, setAdding] = useState(false);
@@ -12,12 +22,12 @@ export default function EventList() {
   // Fetch all events from db initially
   useEffect(() => {
     fetchEvents(setEvents);
-  }, [])
+  }, []);
 
   // Toggle the event input component
   const toggleAdd = () => {
     setAdding(!isAdding);
-  }
+  };
 
   // Validate input fields
   const validateInput = (event) => {
@@ -29,7 +39,7 @@ export default function EventList() {
     }
 
     return true;
-  }
+  };
 
   // Make POST API call after validate
   const handlePost = (event) => {
@@ -38,25 +48,25 @@ export default function EventList() {
       startDate: event.startDate,
       id: uuidv4(),
       endDate: event.endDate,
-    }
+    };
 
     if (validateInput(newEvent)) {
       postEvent(newEvent, setEvents, toggleAdd);
     }
-  }
+  };
 
   // Make DELETE API call
   const handleDelete = (event) => {
     deleteEvent(event, setEvents);
-  }
+  };
 
   // Make PUT API call after validate
   const handlePut = (event, toggleEdit) => {
     if (validateInput(event)) {
       putEvent(event, setEvents, toggleEdit);
     }
-  }
-  
+  };
+
   return (
     <div id="event-list-app">
       <div className="add-event-list">
@@ -77,17 +87,19 @@ export default function EventList() {
           <tbody className="event-list-table__body">
             {events.map((event) => {
               return <Event
-                        className='event' 
-                        key={event.id}
-                        handlePost={handlePost}
-                        handleDelete={handleDelete}
-                        handlePut={handlePut}
-                        event={event} />
+                className='event'
+                key={event.id}
+                handlePost={handlePost}
+                handleDelete={handleDelete}
+                handlePut={handlePut}
+                event={event} />;
             })}
-            {isAdding ? <EventInput handlePost={handlePost} cancelAdd={toggleAdd}/> : null}
+            {isAdding ?
+              <EventInput handlePost={handlePost} cancelAdd={toggleAdd}/> :
+              null}
           </tbody>
         </table>
       </div>
     </div>
-  )
+  );
 }
