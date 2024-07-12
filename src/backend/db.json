@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "id": "a9e15b98-85ba-4128-865b-59f31f74f124",
+      "eventName": "Music Festival",
+      "startDate": "2023-01-20",
+      "endDate": "2023-01-21"
+    },
+    {
+      "id": "2d9cd966-3484-415e-8ec2-7afc4cb2a497",
+      "eventName": "Food Festival",
+      "startDate": "2023-02-01",
+      "endDate": "2023-02-02"
+    }
+  ]
+}

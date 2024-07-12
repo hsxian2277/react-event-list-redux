@@ -1,0 +1,78 @@
+:root {
+  --blue: #008cba;
+  --white: #f0f0f0;
+  --tan: #e6e2d3;
+  --red: #c94c4c;
+}
+
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#event-list-app {
+  position: absolute;
+  width: 80vw;
+  top: 50%;
+  left: 50%;
+  height: 500px;
+  transform: translate(-50%, -50%);
+}
+
+.add-event-list {
+  display: flex;
+}
+
+.add-event-list-button {
+  margin: auto;
+  background-color: var(--blue);
+  border-color: var(--blue);
+  color: var(--white);
+  border-radius: 5px;
+  font-size: large;
+}
+
+.event-list {
+  margin-top: 1rem;
+}
+
+.event-list-table {
+  width: 100%;
+  border: 5px solid var(--tan);
+  padding: 1rem;
+  border-radius: 5px;
+  border-collapse: separate;
+  border-spacing: 0px 1rem;
+}
+
+.event th, .event tr, .event td {
+  text-align: center;
+  border: 0px;
+}
+
+th {
+  font-size: 25px;
+}
+
+tr {
+  margin-bottom: 5px;
+}
+
+.event {
+  background-color: var(--tan);
+  margin-bottom: 1rem;
+  height: 3rem;
+}
+
+.add-btn, .edit-btn, .save-btn {
+  background-color: var(--blue);
+  border-color: var(--blue);
+  color: var(--white);
+  border-radius: 5px;
+}
+
+.delete-btn, .close-btn {
+  background-color: var(--red);
+  border-color: var(--red);
+  color: var(--white);
+  border-radius: 5px;
+}
