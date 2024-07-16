@@ -1,13 +1,15 @@
 import CloseIcon from '@mui/icons-material/Close';
 import AddIcon from '@mui/icons-material/Add';
-import {useState} from 'react';
+import {useState, useContext} from 'react';
+import {EventContext} from '../context/EventContext';
 
 /**
  * Event Input
  *
  * @return {object} JSX
  */
-export default function EventInput({handlePost, cancelAdd}) {
+export default function EventInput() {
+  const ctx = useContext(EventContext);
   const [input, setInput] = useState({});
 
   // Change value input
@@ -30,12 +32,10 @@ export default function EventInput({handlePost, cancelAdd}) {
         <input name='endDate' type='date' onChange={handleChange}></input>
       </td>
       <td>
-        <button className='add-btn' onClick={() => {
-          handlePost(input);
-        }}>
+        <button className='add-btn' onClick={() => ctx.handlePost(input)}>
           <AddIcon />
         </button>
-        <button className='close-btn' onClick={cancelAdd}>
+        <button className='close-btn' onClick={ctx.toggleAdd}>
           <CloseIcon />
         </button>
       </td>

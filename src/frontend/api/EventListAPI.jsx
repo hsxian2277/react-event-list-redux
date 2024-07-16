@@ -1,3 +1,4 @@
+import {v4 as uuidv4} from 'uuid';
 const BASE_EVENT_API = 'http://localhost:3001/events';
 
 // Fetch all events from db
@@ -13,7 +14,14 @@ export const fetchEvents = (setEvents) => {
 };
 
 // Post an event
-export const postEvent = (newEvent, setEvents, toggleAdd) => {
+export const postEvent = (event, setEvents, toggleAdd) => {
+  const newEvent = {
+    id: uuidv4(),
+    eventName: event.eventName,
+    startDate: event.startDate,
+    endDate: event.endDate,
+  };
+
   fetch(BASE_EVENT_API, {
     method: 'POST',
     headers: {

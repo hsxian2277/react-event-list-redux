@@ -2,14 +2,16 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CloseIcon from '@mui/icons-material/Close';
 import SaveIcon from '@mui/icons-material/Save';
-import {useState} from 'react';
+import {useState, useContext} from 'react';
+import {EventContext} from '../context/EventContext';
 
 /**
  * Event component for Event List
  *
  * @return {object} JSX
  */
-export default function Event({event, handleDelete, handlePut}) {
+export default function Event({event}) {
+  const ctx = useContext(EventContext);
   const [isEditing, setEditing] = useState(false);
   const [input, setInput] = useState({
     id: event.id,
@@ -31,16 +33,11 @@ export default function Event({event, handleDelete, handlePut}) {
     setEditing(!isEditing);
   };
 
-  // Delete an existing event
-  const deleteEvent = () => {
-    handleDelete(event);
-  };
-
   // Pass new input to put
   const saveEdit = () => {
     // Don't need to update if no change
     if (JSON.stringify(input) !== JSON.stringify(event)) {
-      handlePut(input, toggleEdit);
+      ctx.handlePut(input, toggleEdit, setInput);
     } else {
       toggleEdit();
     }
@@ -94,7 +91,11 @@ export default function Event({event, handleDelete, handlePut}) {
           <button className='edit-btn' onClick={toggleEdit}>
             <EditIcon />
           </button>
-          <button className='delete-btn' onClick={deleteEvent}>
+          <button className='delete-btn'
+            onClick={() => {
+              ctx.handleDelete(event);
+            }}
+          >
             <DeleteIcon />
           </button>
         </td>
