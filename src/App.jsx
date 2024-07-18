@@ -1,6 +1,7 @@
 import './App.css';
 import EventList from './frontend/components/EventList';
-import {EventProvider} from './frontend/context/EventContext';
+import store from './frontend/redux/store';
+import {Provider} from 'react-redux';
 
 /**
  * App
@@ -10,9 +11,9 @@ import {EventProvider} from './frontend/context/EventContext';
 export default function App() {
   return (
     <div>
-      <EventProvider>
+      <Provider store={store}>
         <EventList />
-      </EventProvider>
+      </Provider>
     </div>
   );
 }

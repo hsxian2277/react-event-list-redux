@@ -2,8 +2,10 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CloseIcon from '@mui/icons-material/Close';
 import SaveIcon from '@mui/icons-material/Save';
-import {useState, useContext} from 'react';
-import {EventContext} from '../context/EventContext';
+import {useState} from 'react';
+import {useDispatch} from 'react-redux';
+import {deleteEvent, putEvent} from '../redux';
+import {validateInput} from '../utils/helpers';
 
 /**
  * Event component for Event List
@@ -11,7 +13,6 @@ import {EventContext} from '../context/EventContext';
  * @return {object} JSX
  */
 export default function Event({event}) {
-  const ctx = useContext(EventContext);
   const [isEditing, setEditing] = useState(false);
   const [input, setInput] = useState({
     id: event.id,
@@ -19,6 +20,7 @@ export default function Event({event}) {
     startDate: event.startDate,
     endDate: event.endDate,
   });
+  const dispatch = useDispatch();
 
   // Change value of input
   const handleChange = (e) => {
@@ -28,18 +30,20 @@ export default function Event({event}) {
     }));
   };
 
-  // Toggle edit
+  // Toggle edit mode
   const toggleEdit = () => {
     setEditing(!isEditing);
   };
 
-  // Pass new input to put
-  const saveEdit = () => {
+  // Update event
+  const handlePut = () => {
     // Don't need to update if no change
-    if (JSON.stringify(input) !== JSON.stringify(event)) {
-      ctx.handlePut(input, toggleEdit, setInput);
-    } else {
+    if (JSON.stringify(input) !== JSON.stringify(event) &&
+        validateInput(input)) {
+      dispatch(putEvent(input));
       toggleEdit();
+    } else {
+      alert('Event details missing');
     }
   };
 
@@ -72,7 +76,7 @@ export default function Event({event}) {
           </input>
         </td>
         <td>
-          <button className='save-btn' onClick={saveEdit}>
+          <button className='save-btn' onClick={handlePut}>
             <SaveIcon />
           </button>
           <button className='close-btn' onClick={toggleEdit}>
@@ -92,9 +96,7 @@ export default function Event({event}) {
             <EditIcon />
           </button>
           <button className='delete-btn'
-            onClick={() => {
-              ctx.handleDelete(event);
-            }}
+            onClick={() => dispatch(deleteEvent(event.id))}
           >
             <DeleteIcon />
           </button>
